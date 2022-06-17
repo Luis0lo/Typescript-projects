@@ -1,8 +1,21 @@
 import React from 'react';
-import { IState as IProps } from '../App';
-import DeleteGuest from './DeleteGuest';
+// import { IState as IProps } from '../App';
+import { IState as Props } from '../App';
 
-const List: React.FC<IProps> = ({ people }) => {
+interface IProps {
+  people: Props['people'];
+  setPeople: React.Dispatch<React.SetStateAction<Props['people']>>;
+}
+
+const List: React.FC<IProps> = ({ people, setPeople }) => {
+  const deleteGuest = (guestUrl: string): void => {
+    setPeople(
+      people.filter((person) => {
+        return person.url !== guestUrl;
+      })
+    );
+  };
+
   const renderList = (): JSX.Element[] => {
     return people.map((person) => {
       return (
@@ -13,7 +26,7 @@ const List: React.FC<IProps> = ({ people }) => {
           </div>
           <p>{person.age} years old</p>
           <p className="List-note">Note: {person.note}</p>
-          <DeleteGuest />
+          <button onClick={() => deleteGuest(person.url)}>Delete</button>
         </li>
       );
     });
