@@ -7,3 +7,7 @@
 ## Run Project
 
 - npm run dev
+
+## Structure
+
+App.tsx - Contains all routes and Navbar
